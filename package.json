@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/peeyush-k-madhavan/ApnaaLibrary/issues"
   },
-  "homepage": "https://github.com/peeyush-k-madhavan/ApnaaLibrary#readme"
+  "homepage": "https://github.com/peeyush-k-madhavan/ApnaaLibrary#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
