@@ -1,0 +1,19 @@
+{
+  "name": "apnaalibrary",
+  "version": "1.0.0",
+  "description": "Capstone Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peeyush-k-madhavan/ApnaaLibrary.git"
+  },
+  "author": "Peeyush K Madhavan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peeyush-k-madhavan/ApnaaLibrary/issues"
+  },
+  "homepage": "https://github.com/peeyush-k-madhavan/ApnaaLibrary#readme"
+}
