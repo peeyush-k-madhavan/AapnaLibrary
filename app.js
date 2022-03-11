@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const upload = require("express-fileupload");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 mongoose.Promise = global.Promise;
 mongoose
@@ -43,6 +45,26 @@ app.use(bodyParser.json());
 
 //Method Override
 app.use(methodOverride("_method"));
+
+//Session
+app.use(
+  session({
+    secret: "aapnalibrary",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+//Flash
+
+app.use(flash());
+
+//LOCAL Variable using Middleware
+
+app.use((req, res, next) => {
+  res.locals.success_message = req.flash("success_message");
+  next();
+});
 
 //Load Routes
 const home = require("./routes/home/index");

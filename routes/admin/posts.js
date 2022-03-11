@@ -25,6 +25,9 @@ router.post("/create", (req, res) => {
   if (!req.body.title) {
     errors.push({ message: "Please add a Title" });
   }
+  if (!req.body.body) {
+    errors.push({ message: "Please add a Description" });
+  }
   if (errors.length > 0) {
     res.render("admin/posts/create", { errors: errors });
   } else {
@@ -59,9 +62,10 @@ router.post("/create", (req, res) => {
     newPost
       .save()
       .then((savedPost) => {
-        console.log("Saved");
-        console.log(savedPost);
-
+        req.flash(
+          "success_message",
+          `A post titled: ${savedPost.title} was created successfully`
+        );
         res.redirect("/admin/posts");
       })
       .catch((error) => {
@@ -93,7 +97,21 @@ router.put("/edit/:id", (req, res) => {
     post.allowComments = allowComments;
     post.body = req.body.body;
 
+    if (!req.files) {
+      res.send("File was not found");
+      return;
+    } else {
+      let file = req.files.file;
+      filename = Date.now() + "-" + file.name;
+      post.file = filename;
+
+      file.mv("./public/uploads/" + filename, (err) => {
+        if (err) throw err;
+      });
+    }
+
     post.save().then((updatedPost) => {
+      req.flash("success_message", "The post was successfully updated");
       res.redirect("/admin/posts");
     });
   });
@@ -103,6 +121,7 @@ router.delete("/:id", (req, res) => {
   Post.findOne({ _id: req.params.id }).then((post) => {
     fs.unlink(uploadDir + post.file, (err) => {
       post.remove();
+      // req.flash("success_message", "The post was successfully Deleted");
       res.redirect("/admin/posts");
     });
   });
