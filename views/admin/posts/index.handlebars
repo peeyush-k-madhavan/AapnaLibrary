@@ -15,6 +15,12 @@
         <td>{{title}}</td>
         <td>{{status}}</td>
         <td>{{allowComments}}</td>
+        <td><a href="posts/edit/{{id}}" class="btn btn-info">Edit</a></td>
+        <td>
+          <form action="posts/{{id}}?_method=DELETE" method="post">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
 
       </tr>
     {{/each}}

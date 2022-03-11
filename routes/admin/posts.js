@@ -1,4 +1,5 @@
 const express = require("express");
+const res = require("express/lib/response");
 const router = express.Router();
 const Post = require("../../models/Posts");
 
@@ -42,5 +43,39 @@ router.post("/create", (req, res) => {
       console.log("Could not Save Data");
     });
   // console.log(req.body);
+});
+
+router.get("/edit/:id", (req, res) => {
+  // res.send(req.params.id);
+
+  Post.findOne({ _id: req.params.id }).then((post) => {
+    res.render("admin/posts/edit", { post: post });
+  });
+  // res.render("admin/posts/edit");
+});
+
+router.put("/edit/:id", (req, res) => {
+  // res.send("WORKS");
+  Post.findOne({ _id: req.params.id }).then((post) => {
+    if (req.body.allowComments) {
+      allowComments = true;
+    } else {
+      allowComments = false;
+    }
+    post.title = req.body.title;
+    post.status = req.body.status;
+    post.allowComments = allowComments;
+    post.body = req.body.body;
+
+    post.save().then((updatedPost) => {
+      res.redirect("/admin/posts");
+    });
+  });
+});
+
+router.delete("/:id", (req, res) => {
+  Post.remove({ _id: req.params.id }).then((result) => {
+    res.redirect("/admin/posts");
+  });
 });
 module.exports = router;
