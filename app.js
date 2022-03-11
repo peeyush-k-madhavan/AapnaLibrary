@@ -21,13 +21,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Set View Engine
 // app.engine("handlebars", expressHandlebars.engine({ defaultLayout: "home" }));
-const { select } = require("./helpers/handlebars-helpers");
+const { select, generateTime } = require("./helpers/handlebars-helpers");
 
 app.engine(
   "handlebars",
   expressHandlebars.engine({
     defaultLayout: "home",
-    helpers: { select: select },
+    helpers: { select: select, generateTime: generateTime },
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
       allowProtoMethodsByDefault: true,
