@@ -4,59 +4,26 @@
   <div class="col-md-8">
 
     <h1 class="my-4">Home
-      <small>Secondary Text</small>
+      {{! <small>AAPNA Library</small> }}
     </h1>
 
-    <!-- Post -->
-    <div class="card mb-4">
-      <img class="card-img-top" src="" alt="Book Image" />
-      <div class="card-body">
-        <h2 class="card-title">Book Title</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a
-          laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-          possimus, veniam magni quis!</p>
-        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+    {{#each posts}}
+      <!-- Post -->
+      <div class="card mb-4">
+        <img class="card-img-top" src="uploads/{{file}}" alt="Book Image" />
+        <div class="card-body">
+          <h2 class="card-title">{{title}}</h2>
+          <p class="card-text">{{body}}</p>
+          <a href="#" class="btn btn-primary">Read More &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+          Posted on
+          {{generateDate date "MMMM Do YYYY"}}
+          by
+          <a href="#">Peeyush</a>
+        </div>
       </div>
-      <div class="card-footer text-muted">
-        Posted on Feb 23, 2022 by
-        <a href="#">Amit</a>
-      </div>
-    </div>
-
-    <!-- Post -->
-    <div class="card mb-4">
-      <img class="card-img-top" src="" alt="Book Image" />
-      <div class="card-body">
-        <h2 class="card-title">Book Title</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a
-          laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-          possimus, veniam magni quis!</p>
-        <a href="#" class="btn btn-primary">Read More &rarr;</a>
-      </div>
-      <div class="card-footer text-muted">
-        Posted on Feb 23, 2022 by
-        <a href="#">Rajkumar</a>
-      </div>
-    </div>
-
-    <!-- Post -->
-    <div class="card mb-4">
-      <img class="card-img-top" src="" alt="Book Image" />
-      <div class="card-body">
-        <h2 class="card-title">Book Title</h2>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a
-          laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus
-          possimus, veniam magni quis!</p>
-        <a href="#" class="btn btn-primary">Read More &rarr;</a>
-      </div>
-      <div class="card-footer text-muted">
-        Posted on Feb 23, 2022 by
-        <a href="#">Peeyush</a>
-      </div>
-    </div>
+    {{/each}}
 
     <!-- Pagination -->
     <ul class="pagination justify-content-center mb-4">
