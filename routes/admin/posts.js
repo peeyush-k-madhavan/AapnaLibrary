@@ -1,10 +1,11 @@
 const express = require("express");
 const res = require("express/lib/response");
 const router = express.Router();
-const Post = require("../../models/Posts");
 const { isEmpty, uploadDir } = require("../../helpers/upload-helper");
 const fs = require("fs");
 const path = require("path");
+const Post = require("../../models/Posts");
+const Category = require("../../models/Category");
 
 router.all("/*", (req, res, next) => {
   req.app.locals.layout = "admin";
@@ -12,12 +13,16 @@ router.all("/*", (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  Post.find({}).then((posts) => {
-    res.render("admin/posts", { posts: posts });
-  });
+  Post.find({})
+    .populate("category")
+    .then((posts) => {
+      res.render("admin/posts", { posts: posts });
+    });
 });
 router.get("/create", (req, res) => {
-  res.render("admin/posts/create");
+  Category.find({}).then((categories) => {
+    res.render("admin/posts/create", { categories: categories });
+  });
 });
 router.post("/create", (req, res) => {
   let errors = [];
@@ -56,6 +61,7 @@ router.post("/create", (req, res) => {
       status: req.body.status,
       allowComments: allowComments,
       body: req.body.body,
+      category: req.body.category,
       file: filename,
     });
 
@@ -79,7 +85,9 @@ router.get("/edit/:id", (req, res) => {
   // res.send(req.params.id);
 
   Post.findOne({ _id: req.params.id }).then((post) => {
-    res.render("admin/posts/edit", { post: post });
+    Category.find({}).then((categories) => {
+      res.render("admin/posts/edit", { post: post, categories: categories });
+    });
   });
   // res.render("admin/posts/edit");
 });
@@ -96,6 +104,7 @@ router.put("/edit/:id", (req, res) => {
     post.status = req.body.status;
     post.allowComments = allowComments;
     post.body = req.body.body;
+    post.category = req.body.category;
 
     if (!req.files) {
       res.send("File was not found");
