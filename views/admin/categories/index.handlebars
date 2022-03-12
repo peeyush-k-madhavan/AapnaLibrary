@@ -1,8 +1,7 @@
-<h1>Categories</h1>
-
+<h2>Create Category</h2>
 <div class="row">
   <div class="col-sm-4">
-    <form action="/admin/categories/create">
+    <form action="/admin/categories/create" method="POST">
       <div class="form-group">
         <label for="name">Name</label>
         <input
@@ -14,5 +13,29 @@
       </div>
       <button class="btn btn-primary">Create Category</button>
     </form>
+  </div>
+
+</div>
+<hr />
+<h2>Categories</h2>
+<div class="row">
+  <div class="col-sm-8">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {{#each categories}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </div>
