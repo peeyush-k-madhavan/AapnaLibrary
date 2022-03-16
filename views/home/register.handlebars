@@ -1,26 +1,28 @@
 <div class="card card-register mx-auto mt-5">
   <div class="card-header">Register an Account</div>
   <div class="card-body">
-    <form action="/register" method="post">
+    <form action="/register" method="POST">
       <div class="form-group">
         <div class="form-row">
           <div class="col-md-6">
-            <label for="exampleInputName">First name</label>
+            <label for="firstName">First name</label>
             <input
               name="firstName"
+              value="{{firstName}}"
               class="form-control"
-              id="exampleInputName"
+              id="firstName"
               type="text"
               aria-describedby="nameHelp"
               placeholder="Enter first name"
             />
           </div>
           <div class="col-md-6">
-            <label for="exampleInputLastName">Last name</label>
+            <label for="lastName">Last name</label>
             <input
               name="lastName"
+              value="{{lastName}}"
               class="form-control"
-              id="exampleInputLastName"
+              id="lastName"
               type="text"
               aria-describedby="nameHelp"
               placeholder="Enter last name"
@@ -29,11 +31,12 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
+        <label for="email">Email address</label>
         <input
           name="email"
+          value="{{email}}"
           class="form-control"
-          id="exampleInputEmail1"
+          id="email"
           type="email"
           aria-describedby="emailHelp"
           placeholder="Enter email"
@@ -42,21 +45,21 @@
       <div class="form-group">
         <div class="form-row">
           <div class="col-md-6">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="password">Password</label>
             <input
               name="password"
               class="form-control"
-              id="exampleInputPassword1"
+              id="password"
               type="password"
               placeholder="Password"
             />
           </div>
           <div class="col-md-6">
-            <label for="exampleConfirmPassword">Confirm password</label>
+            <label for="confirmPassword">Confirm password</label>
             <input
               name="passwordConfirm"
               class="form-control"
-              id="exampleConfirmPassword"
+              id="confirmPassword"
               type="password"
               placeholder="Confirm password"
             />
