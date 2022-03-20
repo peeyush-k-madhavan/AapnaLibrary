@@ -58,6 +58,7 @@ router.post("/create", (req, res) => {
       allowComments = false;
     }
     const newPost = new Post({
+      user: req.user.id,
       title: req.body.title,
       status: req.body.status,
       allowComments: allowComments,
@@ -101,24 +102,25 @@ router.put("/edit/:id", (req, res) => {
     } else {
       allowComments = false;
     }
+    post.user = req.user.id;
     post.title = req.body.title;
     post.status = req.body.status;
     post.allowComments = allowComments;
     post.body = req.body.body;
     post.category = req.body.category;
 
-    if (!req.files) {
-      res.send("File was not found");
-      return;
-    } else {
-      let file = req.files.file;
-      filename = Date.now() + "-" + file.name;
-      post.file = filename;
+    // if (!req.files) {
+    //   res.send("File was not found");
+    //   return;
+    // } else {
+    //   let file = req.files.file;
+    //   filename = Date.now() + "-" + file.name;
+    //   post.file = filename;
 
-      file.mv("./public/uploads/" + filename, (err) => {
-        if (err) throw err;
-      });
-    }
+    //   file.mv("./public/uploads/" + filename, (err) => {
+    //     if (err) throw err;
+    //   });
+    // }
 
     post.save().then((updatedPost) => {
       req.flash("success_message", "The post was successfully updated");
@@ -128,12 +130,21 @@ router.put("/edit/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  Post.findOne({ _id: req.params.id }).then((post) => {
-    fs.unlink(uploadDir + post.file, (err) => {
-      post.remove();
-      // req.flash("success_message", "The post was successfully Deleted");
-      res.redirect("/admin/posts");
+  Post.findOne({ _id: req.params.id })
+    .populate("comments")
+    .then((post) => {
+      fs.unlink(uploadDir + post.file, (err) => {
+        if (!post.comments.length < 1) {
+          post.comments.forEach((comment) => {
+            comment.remove();
+          });
+        }
+
+        post.remove().then((postRemoved) => {
+          req.flash("success_message", "The post was successfully Deleted");
+          res.redirect("/admin/posts");
+        });
+      });
     });
-  });
 });
 module.exports = router;

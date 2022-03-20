@@ -8,8 +8,8 @@
 
     <!-- Author -->
     <p class="lead">
-      by
-      <a href="#">Rajkumar [STATIC TEXT CURRENTLY]</a>
+      Posted by
+      <a href="#">{{post.user.firstName}}</a>
     </p>
 
     <hr />
@@ -36,70 +36,45 @@
     <p class="lead">{{post.body}}</p>
 
     <hr />
-
+{{#if admin}}
+    {{#if post.allowComments}}
     <!-- Comments Form -->
     <div class="card my-4">
       <h5 class="card-header">Leave a Comment:</h5>
       <div class="card-body">
-        <form>
+        <form action="/admin/comments" method="POST">
           <div class="form-group">
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea name="body" class="form-control" rows="3"></textarea>
+            <input type="hidden" name="id" value={{post._id}}>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
+    {{else}}
+    <h5>User has disabled comments for this post!</h5>
+    <hr>
+    {{/if}}
 
+    {{else}}
+    
+    <h5>Kinldy Login to Comment. <a href="/login">Click to Login</a></h5>
+    <hr>
+{{/if}}
+
+{{#each post.comments}}
     <!-- Single Comment -->
     <div class="media mb-4">
       <img
         class="d-flex mr-3 rounded-circle"
-        src=""
-        alt="IMG NOT FOUND"
+        src="/uploads/avatar.png"
       />
       <div class="media-body">
-        <h5 class="mt-0">Commenter Name [STATIC TEXT CURRENTLY]</h5>
-        [STATIC TEXT CURRENTLY]
+        <h5 class="mt-0">{{user.firstName}}</h5>
+        {{body}}
       </div>
     </div>
-
-    <!-- Comment with nested comments -->
-    <div class="media mb-4">
-      <img
-        class="d-flex mr-3 rounded-circle"
-        src=""
-        alt="IMG NOT FOUND"
-      />
-      <div class="media-body">
-        <h5 class="mt-0">Commenter Name [STATIC TEXT CURRENTLY]</h5>
-        [STATIC TEXT CURRENTLY]
-
-        <div class="media mt-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src=""
-            alt="IMG NOT FOUND"
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name [STATIC TEXT CURRENTLY]</h5>
-            Can you shre this book. [STATIC TEXT CURRENTLY]
-          </div>
-        </div>
-
-        <div class="media mt-4">
-          <img
-            class="d-flex mr-3 rounded-circle"
-            src=""
-            alt="IMG NOT FOUND"
-          />
-          <div class="media-body">
-            <h5 class="mt-0">Commenter Name [STATIC TEXT CURRENTLY]</h5>
-            [STATIC TEXT CURRENTLY]
-          </div>
-        </div>
-
-      </div>
-    </div>
+{{/each}}
 
   </div>
 

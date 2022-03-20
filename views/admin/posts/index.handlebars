@@ -9,6 +9,7 @@
       <th>Status</th>
       <th>Category</th>
       <th>Allow Comments</th>
+      <th>Post</th>
       <th>Date</th>
 
     </tr>
@@ -27,6 +28,7 @@
         <td>{{status}}</td>
         <td>{{category.name}}</td>
         <td>{{allowComments}}</td>
+        <td><a href="/post/{{id}}">View Post</a></td>
         <td>{{generateDate date "Do MMM YYYY"}}</td>
 
         <td><a href="posts/edit/{{id}}" class="btn btn-info">Edit</a></td>

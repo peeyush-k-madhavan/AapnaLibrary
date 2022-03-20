@@ -3,6 +3,8 @@ const router = express.Router();
 const Post = require("../../models/Posts");
 const Category = require("../../models/Category");
 const Admin = require("../../models/Admin");
+const Comment = require("../../models/Comment");
+
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -139,11 +141,14 @@ router.get("/contact", (req, res) => {
   res.render("home/contact");
 });
 router.get("/post/:id", (req, res) => {
-  Post.findOne({ _id: req.params.id }).then((post) => {
-    Category.find({}).then((categories) => {
-      res.render("home/post", { post: post, categories: categories });
+  Post.findOne({ _id: req.params.id })
+    .populate({ path: "comments", populate: { path: "user", model: "admins" } })
+    .populate("user")
+    .then((post) => {
+      Category.find({}).then((categories) => {
+        res.render("home/post", { post: post, categories: categories });
+      });
     });
-  });
 });
 
 module.exports = router;
