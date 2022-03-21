@@ -23,13 +23,17 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //Set View Engine
 // app.engine("handlebars", expressHandlebars.engine({ defaultLayout: "home" }));
-const { select, generateDate } = require("./helpers/handlebars-helpers");
+const {
+  select,
+  generateDate,
+  paginate,
+} = require("./helpers/handlebars-helpers");
 
 app.engine(
   "handlebars",
   expressHandlebars.engine({
     defaultLayout: "home",
-    helpers: { select: select, generateDate: generateDate },
+    helpers: { select: select, generateDate: generateDate, paginate: paginate },
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
       allowProtoMethodsByDefault: true,
