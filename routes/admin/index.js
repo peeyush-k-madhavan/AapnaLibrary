@@ -10,15 +10,16 @@ router.all("/*", (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  Post.count().then((postCount) => {
-    Category.count().then((categoryCount) => {
-      Admin.count().then((adminCount) => {
-        res.render("admin/index", {
-          postCount: postCount,
-          categoryCount: categoryCount,
-          adminCount: adminCount,
-        });
-      });
+  const promises = [
+    Post.count().exec(),
+    Category.count().exec(),
+    Admin.count().exec(),
+  ];
+  Promise.all(promises).then(([postCount, categoryCount, adminCount]) => {
+    res.render("admin/index", {
+      postCount: postCount,
+      categoryCount: categoryCount,
+      adminCount: adminCount,
     });
   });
 });
