@@ -84,6 +84,7 @@ const admin = require("./routes/admin/index");
 const posts = require("./routes/admin/posts");
 const categories = require("./routes/admin/categories");
 const comments = require("./routes/admin/comments");
+const adminmessages = require("./routes/admin/message");
 
 const req = require("express/lib/request");
 
@@ -93,6 +94,7 @@ app.use("/admin", admin);
 app.use("/admin/posts", posts);
 app.use("/admin/categories", categories);
 app.use("/admin/comments", comments);
+app.use("/admin/message", adminmessages);
 
 app.listen(4500, () => {
   console.log(`Listening on Port 4500`);

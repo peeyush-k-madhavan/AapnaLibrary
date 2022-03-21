@@ -3,6 +3,8 @@ const router = express.Router();
 const Post = require("../../models/Posts");
 const Category = require("../../models/Category");
 const Admin = require("../../models/Admin");
+const ContactMessage = require("../../models/ContactMessage");
+
 const Comment = require("../../models/Comment");
 
 const bcrypt = require("bcryptjs");
@@ -153,6 +155,29 @@ router.post("/register", (req, res) => {
 router.get("/contact", (req, res) => {
   res.render("home/contact");
 });
+
+router.post("/contact", (req, res) => {
+  const newContactMessage = new ContactMessage({
+    name: req.body.name,
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message,
+  });
+
+  newContactMessage
+    .save()
+    .then((savedContactMessage) => {
+      req.flash(
+        "success_message",
+        "You message has been sent. Our Admins will contact you back soon."
+      );
+      res.redirect("/");
+    })
+    .catch((error) => {
+      console.log("Could not Save Data");
+    });
+});
+
 router.get("/post/:id", (req, res) => {
   Post.findOne({ _id: req.params.id })
     .populate({ path: "comments", populate: { path: "user", model: "admins" } })
