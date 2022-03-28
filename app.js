@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const upload = require("express-fileupload");
 const session = require("express-session");
 const flash = require("connect-flash");
+const pincodeDirectory = require("india-pincode-lookup");
 const { mongoDBUrl } = require("./config/database");
 const passport = require("passport");
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, "public")));
 const {
   select,
   generateDate,
+  calcAge,
   paginate,
 } = require("./helpers/handlebars-helpers");
 
@@ -33,7 +35,12 @@ app.engine(
   "handlebars",
   expressHandlebars.engine({
     defaultLayout: "home",
-    helpers: { select: select, generateDate: generateDate, paginate: paginate },
+    helpers: {
+      select: select,
+      generateDate: generateDate,
+      paginate: paginate,
+      calcAge: calcAge,
+    },
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
       allowProtoMethodsByDefault: true,
@@ -71,7 +78,8 @@ app.use(passport.session());
 //LOCAL Variable using Middleware
 
 app.use((req, res, next) => {
-  res.locals.admin = req.user || null;
+  // res.locals.admin = req.user || null;
+  res.locals.user = req.user || null;
   res.locals.success_message = req.flash("success_message");
   res.locals.error_message = req.flash("error_message");
   res.locals.error = req.flash("error");
@@ -81,20 +89,28 @@ app.use((req, res, next) => {
 //Load Routes
 const home = require("./routes/home/index");
 const admin = require("./routes/admin/index");
-const posts = require("./routes/admin/posts");
-const categories = require("./routes/admin/categories");
-const comments = require("./routes/admin/comments");
+const user = require("./routes/user/index");
+const adminposts = require("./routes/admin/posts");
+const admincategories = require("./routes/admin/categories");
+const admincomments = require("./routes/admin/comments");
 const adminmessages = require("./routes/admin/message");
+const userposts = require("./routes/user/posts");
+const usercomments = require("./routes/user/comments");
+const userupdate = require("./routes/user/update");
 
 const req = require("express/lib/request");
 
 //Use Routes
 app.use("/", home);
 app.use("/admin", admin);
-app.use("/admin/posts", posts);
-app.use("/admin/categories", categories);
-app.use("/admin/comments", comments);
+app.use("/user", user);
+app.use("/admin/posts", adminposts);
+app.use("/admin/categories", admincategories);
+app.use("/admin/comments", admincomments);
 app.use("/admin/message", adminmessages);
+app.use("/user/posts", userposts);
+app.use("/user/comments", usercomments);
+app.use("/user/update", userupdate);
 
 app.listen(4500, () => {
   console.log(`Listening on Port 4500`);

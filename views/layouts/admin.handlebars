@@ -7,15 +7,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <title>AAPNA Library Admin</title>
-    <!-- Bootstrap core CSS-->
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Custom fonts for this template-->
+
     <link
       href="/css/font-awesome/css/font-awesome.min.css"
       rel="stylesheet"
       type="text/css"
     />
-    <!-- Custom styles for this template-->
+
     <link href="/css/al-admin.css" rel="stylesheet" />
   </head>
 
@@ -51,63 +50,6 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle mr-lg-2"
-              id="messagesDropdown"
-              href="#"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="fa fa-fw fa-envelope"></i>
-              <span class="d-lg-none">Messages
-                <span class="badge badge-pill badge-primary">12 New</span>
-              </span>
-              <span class="indicator text-primary d-none d-lg-block">
-                <i class="fa fa-fw fa-circle"></i>
-              </span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-              <h6 class="dropdown-header">New Messages:</h6>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>Rajkumar Thakur</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">Message from Rajkumar</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>Amit Singh</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">Do you have thi book?</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">
-                <strong>Hitesh</strong>
-                <span class="small float-right text-muted">11:21 AM</span>
-                <div class="dropdown-message small">I want to sell XYZ book.</div>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item small" href="#">View all messages</a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <form class="form-inline my-2 my-lg-0 mr-lg-2">
-              <div class="input-group">
-                <input
-                  class="form-control"
-                  type="text"
-                  placeholder="Search for..."
-                />
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button">
-                    <i class="fa fa-search"></i>
-                  </button>
-                </span>
-              </div>
-            </form>
-          </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
               <i class="fa fa-user">{{#if admin}} {{admin.firstName}}{{/if}}</i>
@@ -125,16 +67,6 @@
           </div>
         </div>
       </div>
-      <!-- /.container-fluid-->
-      <!-- /.content-wrapper-->
-      {{!-- <footer class="footer-copyright py-3">
-        <div class="container">
-          <div class="text-center">
-            <small>Copyright © AAPNA Library 2022</small>
-          </div>
-        </div>
-      </footer> --}}
-      <!-- Scroll to Top Button-->
       <a class="scroll-to-top rounded" href="#page-top">
         <i class="fa fa-angle-up"></i>
       </a>

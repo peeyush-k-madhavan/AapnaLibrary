@@ -23,6 +23,7 @@ router.post("/", (req, res) => {
     const newComment = new Comment({
       user: req.user.id,
       body: req.body.body,
+      post: post.id,
     });
     post.comments.push(newComment);
     post.save().then((savedPost) => {

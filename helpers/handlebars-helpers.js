@@ -10,6 +10,13 @@ module.exports = {
   generateDate: function (date, format) {
     return moment(date).format(format);
   },
+  calcAge: function (date) {
+    var birthdate = new Date(date);
+    var cur = new Date();
+    var diff = cur - birthdate;
+    var age = Math.floor(diff / 31536000000);
+    return age;
+  },
 
   paginate: function (options) {
     let output = "";

@@ -1,0 +1,27 @@
+<h1>Comments</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Comment</th>
+      <th>Post</th>
+      <th>Date</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {{#each comments}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{body}}</td>
+        <td><a href="/post/{{post}}">View Post</a></td>
+        <td>{{generateDate date "Do MMMM YYYY"}}</td>
+        <td><form action="/user/comments/{{id}}?_method=DELETE" method="POST">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form></td>
+
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

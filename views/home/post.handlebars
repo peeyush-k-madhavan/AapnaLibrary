@@ -9,7 +9,7 @@
     <!-- Author -->
     <p class="lead">
       Posted by
-      <a href="#">{{post.user.firstName}}</a>
+      <a href="/users/{{post.user.id}}">{{post.user.firstName}}</a>
     </p>
 
     <hr />
@@ -36,7 +36,7 @@
     <p class="lead">{{post.body}}</p>
 
     <hr />
-{{#if admin}}
+{{#if user}}
     {{#if post.allowComments}}
     <!-- Comments Form -->
     <div class="card my-4">

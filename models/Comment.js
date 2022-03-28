@@ -5,7 +5,11 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "admins",
+    ref: "users",
+  },
+  post: {
+    type: Schema.Types.ObjectId,
+    ref: "posts",
   },
   body: {
     type: String,

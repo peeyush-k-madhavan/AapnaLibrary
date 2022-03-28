@@ -6,7 +6,7 @@ const PostSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: "admins",
+      ref: "users",
     },
     category: {
       type: Schema.Types.ObjectId,

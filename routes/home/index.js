@@ -3,8 +3,8 @@ const router = express.Router();
 const Post = require("../../models/Posts");
 const Category = require("../../models/Category");
 const Admin = require("../../models/Admin");
+const User = require("../../models/User");
 const ContactMessage = require("../../models/ContactMessage");
-
 const Comment = require("../../models/Comment");
 
 const bcrypt = require("bcryptjs");
@@ -49,12 +49,12 @@ router.get("/login", (req, res) => {
 
 passport.use(
   new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
-    Admin.findOne({ email: email }).then((admin) => {
-      if (!admin) return done(null, false, { message: "No User Found!" });
-      bcrypt.compare(password, admin.password, (err, matched) => {
+    User.findOne({ email: email }).then((user) => {
+      if (!user) return done(null, false, { message: "No User Found!" });
+      bcrypt.compare(password, user.password, (err, matched) => {
         if (err) return err;
         if (matched) {
-          return done(null, admin);
+          return done(null, user);
         } else {
           return done(null, false, { message: "Incorrect Password." });
         }
@@ -63,18 +63,18 @@ passport.use(
   })
 );
 
-passport.serializeUser(function (admin, done) {
-  done(null, admin.id);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  Admin.findById(id, function (err, admin) {
-    done(err, admin);
+  User.findById(id, function (err, user) {
+    done(err, user);
   });
 });
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
-    successRedirect: "/admin",
+    successRedirect: "/user",
     failureRedirect: "/login",
     failureFlash: true,
   })(req, res, next);
@@ -119,20 +119,20 @@ router.post("/register", (req, res) => {
       email: req.body.email,
     });
   } else {
-    Admin.findOne({ email: req.body.email }).then((user) => {
+    User.findOne({ email: req.body.email }).then((user) => {
       if (!user) {
-        const newAdmin = new Admin({
+        const newUser = new User({
           firstName: req.body.firstName,
           lastName: req.body.lastName,
           email: req.body.email,
           password: req.body.password,
         });
         bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(newAdmin.password, salt, (err, hash) => {
-            newAdmin.password = hash;
-            newAdmin
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            newUser.password = hash;
+            newUser
               .save()
-              .then((savedAdmin) => {
+              .then((savedUser) => {
                 req.flash(
                   "success_message",
                   "You are now registered, please Login."
@@ -180,13 +180,25 @@ router.post("/contact", (req, res) => {
 
 router.get("/post/:id", (req, res) => {
   Post.findOne({ _id: req.params.id })
-    .populate({ path: "comments", populate: { path: "user", model: "admins" } })
+    .populate({ path: "comments", populate: { path: "user", model: "users" } })
     .populate("user")
     .then((post) => {
       Category.find({}).then((categories) => {
         res.render("home/post", { post: post, categories: categories });
       });
     });
+});
+
+router.get("/users/:id", (req, res) => {
+  User.findOne({ _id: req.params.id }).then((user) => {
+    Post.find({ user: req.params.id }).then((posts) => {
+      res.render("home/users", {
+        user: user,
+        posts: posts,
+      });
+    });
+    // res.render("home/users", { user: user });
+  });
 });
 
 module.exports = router;
