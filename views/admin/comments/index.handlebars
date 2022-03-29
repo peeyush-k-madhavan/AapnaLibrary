@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Id</th>
-      <th>Author</th>
-      {{! <th>on Post</th> }}
+      <th>Comment</th>
+      <th>Post</th>
       <th>Date</th>
 
     </tr>
@@ -15,8 +15,8 @@
     {{#each comments}}
       <tr>
         <td>{{id}}</td>
-        <td>{{user.firstName}}</td>
-        {{!-- <td>testing<a href="/post/{{post}}">View Post</a></td> --}}
+        <td>{{body}}</td>
+        <td><a href="/post/{{post}}">View Post</a></td>
         <td>{{generateDate date "Do MMMM YYYY"}}</td>
         <td><form action="/admin/comments/{{id}}?_method=DELETE" method="POST">
             <button type="submit" class="btn btn-danger">Delete</button>
