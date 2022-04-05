@@ -23,6 +23,7 @@ router.get("/", (req, res) => {
     .skip(perPage * page - perPage)
     .limit(perPage)
     .populate("user")
+    .sort({ _id: -1 })
     .then((posts) => {
       Post.count().then((postCount) => {
         Category.find({}).then((categories) => {
@@ -199,6 +200,51 @@ router.get("/users/:id", (req, res) => {
     });
     // res.render("home/users", { user: user });
   });
+});
+
+router.get("/categories/:id", (req, res) => {
+  const perPage = 5;
+  const page = req.query.page || 1;
+  Post.find({ category: req.params.id })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .populate("user")
+    .sort({ _id: -1 })
+    .then((posts) => {
+      Post.count().then((postCount) => {
+        Category.find({}).then((categories) => {
+          res.render("home/index", {
+            posts: posts,
+            categories: categories,
+            current: parseInt(page),
+            pages: Math.ceil(postCount / perPage),
+          });
+        });
+      });
+    });
+});
+
+router.post("/search", (req, res) => {
+  let regex = new RegExp(req.body.text, "i");
+  const perPage = 5;
+  const page = req.query.page || 1;
+  Post.find({ body: regex })
+    .skip(perPage * page - perPage)
+    .limit(perPage)
+    .populate("user")
+    .sort({ _id: -1 })
+    .then((posts) => {
+      Post.count().then((postCount) => {
+        Category.find({}).then((categories) => {
+          res.render("home/index", {
+            posts: posts,
+            categories: categories,
+            current: parseInt(page),
+            pages: Math.ceil(postCount / perPage),
+          });
+        });
+      });
+    });
 });
 
 module.exports = router;

@@ -3,14 +3,16 @@
   <!-- Entries Column -->
   <div class="col-md-8">
 
-    <h1 class="my-4">Home
+    <h1 class="my-4"> Share and Borrow Used Books!
       {{! <small>AAPNA Library</small> }}
     </h1>
-
+{{#unless posts}}
+<h3>No Posts Found!</h3>
+{{/unless}}
     {{#each posts}}
       <!-- Post -->
       <div class="card mb-4">
-        <img class="card-img-top" src="uploads/{{file}}" alt="Book Image" />
+        <img class="card-img-top" src="/uploads/{{file}}" alt="Book Image" />
         <div class="card-body">
           <h2 class="card-title">{{title}}</h2>
           <p class="card-text">{{body}}</p>
@@ -27,9 +29,9 @@
 
     <!-- Pagination -->
         <ul class="pagination justify-content-center mb-4">
-
+{{#if posts}}
             {{#paginate current=current pages=pages}}{{/paginate}}
-
+{{/if}}
         </ul>
 
   </div>

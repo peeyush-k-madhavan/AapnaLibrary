@@ -1,32 +1,17 @@
-<h1>Messages</h1>
-
-<div class="card-columns">
-  {{#each messages}}
-    <div class="card text-white bg-dark mb-3">
-      <div class="card-body">
-        <h5 class="card-title">{{subject}}</h5>
-        <h6 class="card-title">sent by {{name}} ({{email}})</h6>
-        <p class="card-text">{{message}}</p>
-        <p class="card-text"><small class="text-muted">Sent on
-            {{generateDate date "MMMM Do YYYY"}}
-            at
-            {{generateDate date "LT"}}</small></p>
-        <p class="card-text">
-          <table class="table">
-            <tr><td><a href="mailto:{{email}}">
-                  <button class="btn btn-primary">Reply</button></a></td>
-              <td style="text-align:right">
-
-                <form
-                  action="/admin/message/{{id}}?_method=DELETE"
-                  method="POST"
-                >
-                  <button type="submit" class="btn btn-danger">Delete</button>
-                </form></td></tr>
-          </table>
-
-        </p>
-      </div>
+<h2>INBOX</h2>
+{{! <a href="message/new">New</a> }}
+<hr />
+<div class="contaner">
+  <div class="row">
+    <div class="col-md-4">
+      <div><ul class="list-group list-group-flush">
+          <li class="list-group-item">Hitesh</li>
+          <li class="list-group-item">Rajkumar Thakur</li>
+          <li class="list-group-item">Krishna Yadav</li>
+          <li class="list-group-item">Amit Kumar</li>
+          <li class="list-group-item">Peeyush K Madhavan</li>
+        </ul></div>
     </div>
-  {{/each}}
+
+  </div>
 </div>
