@@ -29,6 +29,7 @@ const {
   generateDate,
   calcAge,
   paginate,
+  if_eq,
 } = require("./helpers/handlebars-helpers");
 
 app.engine(
@@ -40,6 +41,7 @@ app.engine(
       generateDate: generateDate,
       paginate: paginate,
       calcAge: calcAge,
+      if_eq: if_eq,
     },
     runtimeOptions: {
       allowProtoPropertiesByDefault: true,
@@ -98,7 +100,8 @@ const userposts = require("./routes/user/posts");
 const usercomments = require("./routes/user/comments");
 const userupdate = require("./routes/user/update");
 const usermessages = require("./routes/user/message");
-
+const userverify = require("./routes/user/verify");
+const adminusers = require("./routes/admin/users");
 const req = require("express/lib/request");
 
 //Use Routes
@@ -109,10 +112,13 @@ app.use("/admin/posts", adminposts);
 app.use("/admin/categories", admincategories);
 app.use("/admin/comments", admincomments);
 app.use("/admin/message", adminmessages);
+app.use("/admin/users", adminusers);
+
 app.use("/user/posts", userposts);
 app.use("/user/comments", usercomments);
 app.use("/user/update", userupdate);
 app.use("/user/message", usermessages);
+app.use("/user/verify", userverify);
 
 app.listen(4500, () => {
   console.log(`Listening on Port 4500`);

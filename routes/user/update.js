@@ -26,6 +26,7 @@ router.put("/", (req, res) => {
     user.district = req.body.district;
     user.state = req.body.state;
     user.pincode = req.body.pincode;
+    user.gender = req.body.gender;
 
     // user.birthday = req.user.birthday;
 

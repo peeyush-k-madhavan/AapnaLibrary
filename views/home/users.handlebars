@@ -3,10 +3,18 @@
     <div class="row align-items-center flex-row-reverse">
       <div class="col-lg-6">
         <div class="about-text go-to">
-          <h3 class="dark-color">{{user.firstName}} {{user.lastName}}</h3>
+          <h3 class="dark-color">{{user.firstName}}
+            {{user.lastName}}
+          </h3>
           <h6 class="theme-color lead">
             {{user.headline}}
           </h6>
+          {{#if user.verified}}
+            <i class="bi-patch-check-fill">Verified Profile</i>
+          {{/if}}
+          {{#unless user.verified}}
+            <i>Profile Not Verified Yet</i>
+          {{/unless}}
           <div class="row about-list">
             <div class="col-md-5">
               <div class="media">
@@ -47,13 +55,13 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-5">
         <div class="about-avatar">
-          <img
-            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-            title=""
-            alt=""
-          />
+          {{#if_eq user.gender "male"}}
+            <img src="/uploads/male.png" title="" alt="" />
+          {{else}}
+            <img src="/uploads/female.png" title="" alt="" />
+          {{/if_eq}}
         </div>
       </div>
     </div>
@@ -85,11 +93,15 @@
         </div>
       </div>
     </div> }}
-    <a href="user">Send Message</a>
   </div>
 </section>
+<a href="/user/messages">Send Message</a>
 <hr />
 <h2>{{user.firstName}}'s Posts: </h2>
+{{#unless posts}}
+  <h3>No Posts Found!</h3>
+{{/unless}}
+
 <div class="row">
   {{#each posts}}
     <div class="col-md-6">

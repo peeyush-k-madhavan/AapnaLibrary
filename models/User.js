@@ -28,6 +28,9 @@ const UserSchema = new Schema({
   status: {
     type: String,
   },
+  gender: {
+    type: String,
+  },
   city: {
     type: String,
   },
@@ -39,6 +42,13 @@ const UserSchema = new Schema({
   },
   pincode: {
     type: String,
+  },
+  card: {
+    type: String,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
 });
 

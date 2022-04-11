@@ -1,0 +1,26 @@
+{{#if user.verified}}
+  <i class="bi-patch-check-fill"> Account Verified</i>
+{{/if}}
+
+{{#unless user.verified}}
+  <h2>Verify Your Profile</h2>
+  <hr />
+
+  <h4>Kindly Upload a photo of any ID you have. Our Admins will verify your
+    account within 24hrs.</h4>
+  <hr />
+
+  <form
+    action="/user/verify?_method=PUT"
+    method="post"
+    enctype="multipart/form-data"
+  >
+
+    <div class="form-group">
+      <label for="card">Upload ID Card</label>
+      <input required type="file" name="card" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+
+{{/unless}}

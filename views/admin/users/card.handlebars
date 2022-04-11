@@ -1,0 +1,35 @@
+<h1>Verify ID Card</h1>
+<hr />
+
+{{#each users}}
+  {{#unless card}}
+    <h3>No ID Uploaded by User Yet</h3>
+  {{/unless}}
+  {{#if card}}
+    <div class="row">
+      <div class="col-md-6"><img
+          class="card-img-top"
+          src="/uploads/{{card}}"
+          alt="Book Image"
+        /></div>
+      <div class="col-md-6">
+        <form action="/admin/users/card/{{id}}?_method=PUT" method="POST">
+          <div class="form-check">
+            <label for="verify" class="form-check-label">
+              <input
+                name="verified"
+                type="checkbox"
+                {{#if verified}} checked="checked" {{/if}}
+                class="form-check-input"
+                id="verify"
+              />Verify
+            </label>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+  {{/if}}
+{{/each}}

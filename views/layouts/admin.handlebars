@@ -118,10 +118,10 @@
         const myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Posts', 'Categories', 'Users', 'Books Borrowed', "Admins"],
+                labels: ['Posts', 'Categories', "Users"],
                 datasets: [{
                     label: '# of Count',
-                    data: [{{postCount}}, {{categoryCount}}, 0, 0, {{adminCount}}],
+                    data: [{{postCount}}, {{categoryCount}},{{userCount}}],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',

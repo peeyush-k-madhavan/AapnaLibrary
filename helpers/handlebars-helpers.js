@@ -6,6 +6,13 @@ module.exports = {
       .fn(this)
       .replace(new RegExp('value="' + selected + '"'), '$&selected="selected"');
   },
+  if_eq: function (a, b, opts) {
+    if (a == b) {
+      return opts.fn(this);
+    } else {
+      return opts.inverse(this);
+    }
+  },
 
   generateDate: function (date, format) {
     return moment(date).format(format);

@@ -1,0 +1,61 @@
+<h1>Users</h1>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Profile</th>
+      <th>Verified</th>
+      <th>ID Card</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{firstName}}</td>
+        <td>{{lastName}}</td>
+        <td><a href="/users/{{id}}">View Profile</a></td>
+        <td>{{verified}}</td>
+        <td>{{#if card}}Uploaded
+            <a href="/admin/users/card/{{id}}">View Card</a>
+          {{else}}Not Uploaded{{/if}}</td>
+
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h3>Users Ready to be Verified</h3>
+
+<table class="table table-border">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Profile</th>
+      <th>Verified</th>
+      <th>ID Card</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      {{#unless verified}}
+        {{#if card}}
+          <tr>
+            <td>{{id}}</td>
+            <td>{{firstName}}</td>
+            <td>{{lastName}}</td>
+            <td><a href="/users/{{id}}">View Profile</a></td>
+            <td>{{verified}}</td>
+            <td>{{#if card}}Uploaded
+                <a href="/admin/users/card/{{id}}">View Card</a>
+              {{else}}Not Uploaded{{/if}}</td>
+          </tr>
+        {{/if}}
+      {{/unless}}
+    {{/each}}
+  </tbody>
+</table>
