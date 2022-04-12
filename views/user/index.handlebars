@@ -1,1 +1,10 @@
 <h1>Hello {{user.firstName}}!</h1>
+<h5><a href="/users/{{user.id}}">View Profile</a></h5>
+
+{{!-- {{#unless user.headline || user.status|| user.city|| user.district|| user.pincode}}
+  <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
+{{/unless}} --}}
+
+{{#unless user.verified}}
+  <h6>Kindly Verify Your Profile <a href="/user/verify">here</a></h6>
+{{/unless}}
