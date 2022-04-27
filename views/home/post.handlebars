@@ -1,7 +1,7 @@
 <div class="row">
 
   <!-- Post Content Column -->
-  <div class="col-lg-8">
+  <div class="col-lg-9">
 
     <!-- Title -->
     <h1 class="mt-4">{{post.title}}</h1>
@@ -42,9 +42,9 @@
     <div class="card my-4">
       <h5 class="card-header">Leave a Comment:</h5>
       <div class="card-body">
-        <form action="/admin/comments" method="POST">
+        <form action="/user/comments" method="POST">
           <div class="form-group">
-            <textarea name="body" class="form-control" rows="3"></textarea>
+            <textarea name="body" class="form-control" rows="3" required></textarea>
             <input type="hidden" name="id" value={{post._id}}>
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
@@ -70,7 +70,7 @@
         src="/uploads/avatar.png"
       />
       <div class="media-body">
-        <h5 class="mt-0">{{user.firstName}}</h5>
+        <h5 class="mt-0"><a href="/users/{{user.id}}">{{user.firstName}}</a></h5>
         {{body}}
       </div>
     </div>

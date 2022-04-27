@@ -4,8 +4,9 @@ const Post = require("../../models/Posts");
 const Category = require("../../models/Category");
 const Admin = require("../../models/Admin");
 const User = require("../../models/User");
+const { adminAuthenticated } = require("../../helpers/authentication");
 
-router.all("/*", (req, res, next) => {
+router.all("/*", adminAuthenticated, (req, res, next) => {
   req.app.locals.layout = "admin";
   next();
 });

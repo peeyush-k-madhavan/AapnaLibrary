@@ -17,7 +17,7 @@ router.all("/*", (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  const perPage = 5;
+  const perPage = 8;
   const page = req.query.page || 1;
   Post.find({})
     .skip(perPage * page - perPage)
@@ -44,6 +44,10 @@ router.get("/about", (req, res) => {
 
 router.get("/login", (req, res) => {
   res.render("home/login");
+});
+
+router.get("/adminlogin", (req, res) => {
+  res.render("home/adminlogin");
 });
 
 //APP LOGIN
@@ -77,6 +81,14 @@ router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/user",
     failureRedirect: "/login",
+    failureFlash: true,
+  })(req, res, next);
+});
+
+router.post("/adminlogin", (req, res, next) => {
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/adminlogin",
     failureFlash: true,
   })(req, res, next);
 });
@@ -203,7 +215,7 @@ router.get("/users/:id", (req, res) => {
 });
 
 router.get("/categories/:id", (req, res) => {
-  const perPage = 5;
+  const perPage = 8;
   const page = req.query.page || 1;
   Post.find({ category: req.params.id })
     .skip(perPage * page - perPage)
@@ -226,7 +238,7 @@ router.get("/categories/:id", (req, res) => {
 
 router.post("/search", (req, res) => {
   let regex = new RegExp(req.body.text, "i");
-  const perPage = 5;
+  const perPage = 8;
   const page = req.query.page || 1;
   Post.find({ body: regex })
     .skip(perPage * page - perPage)

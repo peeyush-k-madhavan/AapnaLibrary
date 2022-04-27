@@ -1,9 +1,35 @@
-<h1>Hello {{user.firstName}}!</h1>
-<h5><a href="/users/{{user.id}}">View Profile</a></h5>
+<h1 class="text-center">Hello {{user.firstName}}!</h1>
+<h5 class="text-center"><a href="/users/{{user.id}}">View Profile</a></h5>
 
-{{!-- {{#unless user.headline || user.status|| user.city|| user.district|| user.pincode}}
+<h2 class="text-center">
+  Welcome to AAPNA Library
+</h2>
+<h4 class="text-center"> A Place where you can share or find used Books</h4>
+
+{{#unless user.headline}}
   <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
-{{/unless}} --}}
+{{else}}
+  {{#unless user.status}}
+    <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
+  {{else}}
+    {{#unless user.city}}
+      <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
+    {{else}}
+      {{#unless user.district}}
+        <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
+      {{else}}
+        {{#unless user.pincode}}
+          <h6>Kindly Complete Your Profile <a href="/user/update">here</a></h6>
+        {{else}}
+          {{#unless user.state}}
+            <h6>Kindly Complete Your Profile
+              <a href="/user/update">here</a></h6>
+          {{/unless}}
+        {{/unless}}
+      {{/unless}}
+    {{/unless}}
+  {{/unless}}
+{{/unless}}
 
 {{#unless user.verified}}
   <h6>Kindly Verify Your Profile <a href="/user/verify">here</a></h6>

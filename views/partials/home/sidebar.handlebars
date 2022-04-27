@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-3">
   <!-- Search Widget -->
   <div class="card my-4">
     <h5 class="card-header">Search</h5>
@@ -6,7 +6,7 @@
     <div class="form-control">
       <form action="/search" method="POST">
         <div class="row">
-          <div class="col-md-9">
+          <div class="col-md-8">
             <input
               type="text"
               class="form-control"
@@ -30,8 +30,8 @@
         {{#each categories}}
           <div class="col-lg-6">
             <ul class="list-unstyled mb-0">
-              <li>
-                <a href="/categories/{{id}}">{{name}}</a>
+              <li><b>
+                  <a href="/categories/{{id}}">{{name}}</a></b>
               </li>
             </ul>
           </div>
